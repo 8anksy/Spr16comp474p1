@@ -45,6 +45,14 @@ public class ShoppingCart {
 	public void EmptyCart() {
 		items.clear();
 	}
+	public void RemoveItem(String item) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i) == item) {
+				size--;
+			}
+			
+		}
+	}
 	
 	public int GetSize() {
 		return size;

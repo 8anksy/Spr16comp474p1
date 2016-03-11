@@ -1,5 +1,7 @@
 package com.inventory.store;
 
+import java.math.BigDecimal;
+
 import com.inventory.MockDB.ItemDO;
 
 public class Register {
@@ -7,11 +9,18 @@ public class Register {
 	private float TEN_OR_MORE = 0.10f;
 	private float OVER_FIVE = 0.05f;
 	private float TAX_RATE = 0.045f;
-	private float rawTotal;
-	private float netTotal;
-	private float taxAmount;
-	private float aftTaxTotal;
+//	private float rawTotal;
+//	private float netTotal;
+//	private float taxAmount;
+//	private float aftTaxTotal;
 	private ItemDO database;
+	
+	
+	private BigDecimal bdRawTotal;
+	private BigDecimal bdNetTotal;
+	private BigDecimal bdNetDisc;
+	private BigDecimal bdTaxAmount;
+	private BigDecimal bdAftTaxTotal;
 	
 	public Register(ItemDO database){
 		this.database = database;
@@ -29,57 +38,79 @@ public class Register {
 			if (database.Contains(id)) {
 				total += database.GetItem(id).GetCost();
 			}
+			else {
+				cart.RemoveItem(id);
+			}
 		}
-		rawTotal = total;
+		
+		bdRawTotal = new BigDecimal(total).setScale(2,BigDecimal.ROUND_HALF_EVEN);
+		//rawTotal = RoundNearestCent(total);
 	}
 	
 	private void CalcDiscount (ShoppingCart cart, Customer customer) {
-		float runningTotal = rawTotal;
+		float runningTotal = bdRawTotal.floatValue();
+		float netDisc = 0.0f;
 		if (customer.GetMemberStatus()) {
-			runningTotal = rawTotal - (rawTotal * MEMBER_DISC);
+			netDisc = bdRawTotal.floatValue() * MEMBER_DISC;
 		}
 		if (cart.GetSize() >= 10) {
-			runningTotal = runningTotal - (runningTotal * TEN_OR_MORE);
+			netDisc = netDisc + bdRawTotal.floatValue() * TEN_OR_MORE;
+			
 		}
-		if (cart.GetSize() > 5) {
-			runningTotal = runningTotal - (runningTotal * OVER_FIVE);
+		if (cart.GetSize() > 5 && cart.GetSize() < 10) {
+			netDisc = netDisc + bdRawTotal.floatValue() * OVER_FIVE;
 		}
-		netTotal = RoundNearestCent(runningTotal);
+		runningTotal = bdRawTotal.floatValue() - netDisc;
+		bdNetDisc = new BigDecimal(netDisc).setScale(2,BigDecimal.ROUND_HALF_EVEN);
+		bdNetTotal = new BigDecimal(runningTotal).setScale(2,BigDecimal.ROUND_HALF_EVEN);
+		
 	}
 	
 	private void CalcTaxTotal (Customer customer) {
 		if (customer.GetTaxStatus()) {
-			taxAmount = 0.0f;
+			bdTaxAmount = new BigDecimal(0.00);
+			bdAftTaxTotal = new BigDecimal(bdNetTotal.floatValue()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		}
 		else {
-			taxAmount = RoundNearestCent(netTotal * TAX_RATE);
-			aftTaxTotal = netTotal + taxAmount;
+			bdTaxAmount = new BigDecimal(bdNetTotal.floatValue() * TAX_RATE).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+			float aftTaxTotal = bdNetTotal.floatValue() + bdTaxAmount.floatValue();
+			bdAftTaxTotal = new BigDecimal(aftTaxTotal).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		}
 	}
 	
+	public void PrintItems(ShoppingCart cart) {
+		for (String i : cart.GetItems()) {
+			if (database.Contains(i)) {
+				System.out.println(i + database.GetItem(i).GetCost());
+			}
+		}
+	}
 	public void PrintDisplay() {
 		//TODO print all totals/values
+		
+		System.out.println("Subtotal    " + BDGetRawTotal());
+		System.out.println("-----------------");
+		System.out.println("Discount    -" + BDGetNetDiscount());
+		System.out.println("Tax	     " + BDGetTaxAmount());
+		System.out.println("=================");
+		System.out.println("Total	    " + BDGetAftTaxTotal());
 	}
 	
-	//Helper method for rounding totals
-	private float RoundNearestCent(float f) {
-		float round = f * 100;
-		Math.round(round);
-		round = round/100;
-		return round;
-	}
 	
 	
-	public float GetRawTotal() {
-		return rawTotal;
+	public BigDecimal BDGetRawTotal() {
+		return bdRawTotal;
 	}
-	public float GetNetTotal() {
-		return netTotal;
+	public BigDecimal GetBDNetTotal() {
+		return bdNetTotal;
 	}
-	public float GetTaxAmount() {
-		return taxAmount;
+	public BigDecimal BDGetTaxAmount() {
+		return bdTaxAmount;
 	}
-	public float GetAftTaxTotal() {
-		return aftTaxTotal;
+	public BigDecimal BDGetAftTaxTotal() {
+		return bdAftTaxTotal;
+	}
+	public BigDecimal BDGetNetDiscount() {
+		return bdNetDisc;
 	}
 }

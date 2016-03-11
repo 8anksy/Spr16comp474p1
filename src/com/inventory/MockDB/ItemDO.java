@@ -37,9 +37,9 @@ public class ItemDO {
 		}
 	
 	public Item GetItem(String itemID) {
-		for (Item i : database) {
-			if (i.GetID() == itemID) {
-				return i;
+		for (int i = 0; i < database.size(); i++) {
+			if (database.get(i).GetID() == itemID) {
+				return database.get(i);
 			}
 		}
 		return null;
@@ -47,8 +47,8 @@ public class ItemDO {
 	
 	public boolean Contains(String itemID) {
 		boolean contains = false;
-		for (Item i : database) {
-			if (i.GetID() == itemID) {
+		for (int i = 0; i < database.size(); i++) {
+			if (database.get(i).GetID() == itemID) {
 				contains = true;
 			}
 		}
