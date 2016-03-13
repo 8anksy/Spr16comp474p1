@@ -9,10 +9,7 @@ public class Register {
 	private float TEN_OR_MORE = 0.10f;
 	private float OVER_FIVE = 0.05f;
 	private float TAX_RATE = 0.045f;
-//	private float rawTotal;
-//	private float netTotal;
-//	private float taxAmount;
-//	private float aftTaxTotal;
+
 	private ItemDO database;
 	
 	
@@ -21,9 +18,10 @@ public class Register {
 	private BigDecimal bdNetDisc;
 	private BigDecimal bdTaxAmount;
 	private BigDecimal bdAftTaxTotal;
-	
-	// @param database The appropriate database to be used with this Register
-	// @return Register Constructs a new register with the linked database.
+	/*
+	 * @param database The appropriate database to be used with this Register
+	 * @return Register Constructs a new register with the linked database.
+	 * */
 	public Register(ItemDO database){
 		this.database = database;
 	}
@@ -39,7 +37,7 @@ public class Register {
 		CalcTaxTotal(customer.GetTaxStatus());
 	}
 	
-	//@param cart The shopping cart used to calculate the base total.
+	/* @param cart The shopping cart used to calculate the base total. */
 	private void CalcRawTotal (ShoppingCart cart) {
 		float total = 0;
 		for (String id : cart.GetItems()) {
@@ -53,8 +51,10 @@ public class Register {
 		bdRawTotal = new BigDecimal(total).setScale(2,BigDecimal.ROUND_HALF_EVEN);
 	}
 	
-	// @param cartSize The number of items in the cart
-	// @param memStatus The membership status of the customer
+	/* 
+	 * @param cartSize The number of items in the cart
+	 * @param memStatus The membership status of the customer
+	 */ 
 	private void CalcDiscount (int cartSize, boolean memStatus) {
 		float runningTotal = bdRawTotal.floatValue();
 		float netDisc = 0.0f;
@@ -74,7 +74,7 @@ public class Register {
 		
 	}
 	
-	//@param taxStatus The exemption status of the customer
+	/*@param taxStatus The exemption status of the customer */
 	private void CalcTaxTotal (boolean taxStatus) {
 		if (taxStatus) {
 			bdTaxAmount = new BigDecimal(0.00);
@@ -87,7 +87,7 @@ public class Register {
 		}
 	}
 	
-	//@param cart The items used to print their ids and values.
+	/* @param cart The items used to print their ids and values. */
 	public void PrintItems(ShoppingCart cart) {
 		for (String i : cart.GetItems()) {
 			if (database.Contains(i)) {
