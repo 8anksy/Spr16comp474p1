@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.inventory.MockDB.Item;
 import com.inventory.MockDB.ItemDO;
 import com.inventory.store.ShoppingCart;
 

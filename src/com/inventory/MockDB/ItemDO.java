@@ -1,7 +1,6 @@
 package com.inventory.MockDB;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /*
  * This class is a mock database that instantiates several MockItem objects.

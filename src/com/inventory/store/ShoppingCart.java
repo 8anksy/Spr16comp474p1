@@ -1,7 +1,6 @@
 package com.inventory.store;
 import java.util.ArrayList;
 
-import com.inventory.MockDB.Item;
 
 public class ShoppingCart {
 	private int MAX_CART_SIZE = 50;
