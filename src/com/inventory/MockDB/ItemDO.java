@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class ItemDO {
 	private ArrayList<Item> database;
 	
+	
+	// return Returns a new ItemDO that can be used to retrieve Items.
 	public ItemDO () {
 		this.database = new ArrayList<Item>();
 		
@@ -35,6 +37,8 @@ public class ItemDO {
 		database.add(item9);
 		}
 	
+	// @param itemID The name of an item to be searched for in the database.
+	// @return Item Returns an Item with the matching id. Returns null if not found.
 	public Item GetItem(String itemID) {
 		for (int i = 0; i < database.size(); i++) {
 			if (database.get(i).GetID() == itemID) {
@@ -44,6 +48,8 @@ public class ItemDO {
 		return null;
 	}
 	
+	// @param itemID The name of an item to be searched for in the database.
+	// @return boolean Returns true if the item is found. Else false. 
 	public boolean Contains(String itemID) {
 		boolean contains = false;
 		for (int i = 0; i < database.size(); i++) {
