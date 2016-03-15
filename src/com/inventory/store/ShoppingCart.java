@@ -73,12 +73,18 @@ public class ShoppingCart {
 	 * If the item for removal is found, only the size is decremented.
 	 * @param item The item in question to be removed
 	 */
-	public void RemoveItem(String item) {
+	public void RemoveAll(String item) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i) == item) {
 				size--;
 			}
-			
+		}
+	}
+	public void RemoveQuantity(String item, int quantity) {
+		for (int i = 0; i < quantity; i++) {
+			if (items.get(i) == item) {
+				size --;
+			}
 		}
 	}
 	

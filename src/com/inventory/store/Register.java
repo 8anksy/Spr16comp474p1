@@ -51,7 +51,7 @@ public class Register {
 				total += database.GetItem(id).GetCost();
 			}
 			else {
-				cart.RemoveItem(id);
+				cart.RemoveAll(id);
 			}
 		}
 		bdRawTotal = new BigDecimal(total).setScale(2,BigDecimal.ROUND_HALF_EVEN);
