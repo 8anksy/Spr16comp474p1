@@ -37,7 +37,6 @@ public class RegisterTests {
 
 	}
 	@Test
-	//TODO fix this test
 	public void TestWrongItem() {
 		cart.AddItem("trampoline");
 		r.CalcPurchasePrice(cart, noMemNoEx);
@@ -52,32 +51,27 @@ public class RegisterTests {
 	
 	@Test
 	public void TestCalcNonMemberDiscount() {
-		//System.out.println("TEST CALCDISCOUNT");
 		ShoppingCart discCart = new ShoppingCart();
 		
 		//Test with 9 items
 		discCart.AddItem("avocado", 9);
 		r.CalcPurchasePrice(discCart, noMemNoEx);
-		//System.out.println(r.GetBDNetTotal());
 		assertEquals(8.46f,r.GetBDNetTotal().floatValue(), 0);
 		
 		
 		//Test with 10 items
 		discCart.AddItem("avocado");
 		r.CalcPurchasePrice(discCart, noMemNoEx);
-		//System.out.println(r.GetBDNetTotal());
 		assertEquals(8.91f,r.GetBDNetTotal().floatValue(), 0);
 		
 		
 		//Test with 11 items
 		discCart.AddItem("avocado");
 		r.CalcPurchasePrice(discCart, noMemNoEx);
-		//System.out.println(r.GetBDNetTotal());
 		assertEquals(9.80f,r.GetBDNetTotal().floatValue(), 0);
 	}
 	@Test
 	public void TestCalcMemberDiscount() {
-		//System.out.println("TEST MemberCalcDiscount");
 		ShoppingCart discCart = new ShoppingCart();
 		
 		//Test with 4 items
@@ -107,12 +101,10 @@ public class RegisterTests {
 		
 		//testing tax exempt
 		r.CalcPurchasePrice(taxCart, noMemEx);
-		//System.out.println(r.BDGetAftTaxTotal());
 		assertEquals(11.45f, r.BDGetAftTaxTotal().floatValue(), 0);
 		
 		//testing non-tax-exempt
 		r.CalcPurchasePrice(taxCart, noMemNoEx);
-		//System.out.println(r.BDGetAftTaxTotal());
 		assertEquals(11.97f, r.BDGetAftTaxTotal().floatValue(), 0);
 		
 	}

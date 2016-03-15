@@ -99,7 +99,6 @@ public class Register {
 	 * @param cart The items used to print their id's and values.
 	 */
 	public void PrintItems(ShoppingCart cart) {
-		String s;
 		for (String i : cart.GetItems()) {
 			if (database.Contains(i)) {
 				System.out.printf("%-12s %5.2f\n", i,database.GetItem(i).GetCost());
