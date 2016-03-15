@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 
 import com.inventory.MockDB.ItemDO;
 
+/**
+ * @version 1.0
+ * This class handles all of the math involved in calculating values. It requires a database to pull from in order
+ * to be constructed. Its primary method requires a ShoppingCart and a Customer object to computer prices.
+ */
 public class Register {
 	private float MEMBER_DISC = 0.10f;
 	private float TEN_OR_MORE = 0.10f;
@@ -18,15 +23,14 @@ public class Register {
 	private BigDecimal bdNetDisc;
 	private BigDecimal bdTaxAmount;
 	private BigDecimal bdAftTaxTotal;
-	/*
+	/**
 	 * @param database The appropriate database to be used with this Register
-	 * @return Register Constructs a new register with the linked database.
-	 * */
+	 */
 	public Register(ItemDO database){
 		this.database = database;
 	}
 	
-	/* This is an interface method which calls several private methods
+	/** This is an interface method which calls several private methods
 	 * that calculate different parts of the total.
 	 * @param cart A shopping cart with any number of items.
 	 * @param customer the Customer being paired with the cart.
@@ -37,7 +41,9 @@ public class Register {
 		CalcTaxTotal(customer.GetTaxStatus());
 	}
 	
-	/* @param cart The shopping cart used to calculate the base total. */
+	/**
+	 * @param cart The shopping cart used to calculate the base total.
+	*/
 	private void CalcRawTotal (ShoppingCart cart) {
 		float total = 0;
 		for (String id : cart.GetItems()) {
@@ -51,7 +57,7 @@ public class Register {
 		bdRawTotal = new BigDecimal(total).setScale(2,BigDecimal.ROUND_HALF_EVEN);
 	}
 	
-	/* 
+	/** 
 	 * @param cartSize The number of items in the cart
 	 * @param memStatus The membership status of the customer
 	 */ 
@@ -74,7 +80,9 @@ public class Register {
 		
 	}
 	
-	/*@param taxStatus The exemption status of the customer */
+	/**
+	 * @param taxStatus The exemption status of the customer
+	*/
 	private void CalcTaxTotal (boolean taxStatus) {
 		if (taxStatus) {
 			bdTaxAmount = new BigDecimal(0.00);
@@ -87,7 +95,9 @@ public class Register {
 		}
 	}
 	
-	/* @param cart The items used to print their ids and values. */
+	/**
+	 * @param cart The items used to print their id's and values.
+	 */
 	public void PrintItems(ShoppingCart cart) {
 		for (String i : cart.GetItems()) {
 			if (database.Contains(i)) {
@@ -107,19 +117,33 @@ public class Register {
 	}
 	
 	
-	
+	/**
+	 * @return BigDecimal Returns the object which contains the un-altered subtotal.
+	 */
 	public BigDecimal BDGetRawTotal() {
 		return bdRawTotal;
 	}
+	/**
+	 * @return BigDecimal Returns the object which contains the discounted total.
+	 */
 	public BigDecimal GetBDNetTotal() {
 		return bdNetTotal;
 	}
+	/**
+	 * @return BigDecimal Returns the object which contains the amount added due to tax.
+	 */
 	public BigDecimal BDGetTaxAmount() {
 		return bdTaxAmount;
 	}
+	/**
+	 * @return BigDecimal Returns the object which contains the total amount after discounts and taxes.
+	 */
 	public BigDecimal BDGetAftTaxTotal() {
 		return bdAftTaxTotal;
 	}
+	/**
+	 * @return BigDecimal Returns the object which contains amount discounted from the subtotal.
+	 */
 	public BigDecimal BDGetNetDiscount() {
 		return bdNetDisc;
 	}
