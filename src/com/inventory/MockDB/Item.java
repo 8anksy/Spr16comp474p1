@@ -1,5 +1,8 @@
 package com.inventory.MockDB;
 
+/**
+ * This class is a mock Item contains a String id and cost. It is used to populate the mock database. 
+ */
 public class Item {
 	private String id;
 	private float cost;
