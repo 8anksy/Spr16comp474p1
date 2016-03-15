@@ -20,14 +20,14 @@ public class Item {
 	/**
 	 * @return String The stored id of the Item
 	 */
-	public String GetID() {
+	public String getID() {
 		return id;
 	}
 	
 	/**
 	 * @return float The stored cost of the Item
 	 */
-	public float GetCost() {
+	public float getCost() {
 		return cost;
 	}
 	@Override

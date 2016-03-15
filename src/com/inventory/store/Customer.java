@@ -34,13 +34,13 @@ public class Customer {
 	/**
 	 * @return boolean Returns 'true' if Customer is a member. Returns 'false' if not a member.
 	 */
-	public boolean GetMemberStatus() {
+	public boolean getMemberStatus() {
 		return memberStatus;
 	}
 	/**
 	 * @return boolean Returns 'true' if Customer is tax exempt. Returns 'false' if not tax exempt.
 	 */
-	public boolean GetTaxStatus() {
+	public boolean getTaxStatus() {
 		return taxExempt;
 	}
 }

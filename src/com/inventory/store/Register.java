@@ -35,23 +35,23 @@ public class Register {
 	 * @param cart A shopping cart with any number of items.
 	 * @param customer the Customer being paired with the cart.
 	 */
-	public void CalcPurchasePrice (ShoppingCart cart, Customer customer) {
-		CalcRawTotal(cart);
-		CalcDiscount(cart.GetSize(), customer.GetMemberStatus());
-		CalcTaxTotal(customer.GetTaxStatus());
+	public void calcPurchasePrice (ShoppingCart cart, Customer customer) {
+		calcRawTotal(cart);
+		calcDiscount(cart.getSize(), customer.getMemberStatus());
+		calcTaxTotal(customer.getMemberStatus());
 	}
 	
 	/**
 	 * @param cart The shopping cart used to calculate the base total.
 	*/
-	private void CalcRawTotal (ShoppingCart cart) {
+	private void calcRawTotal (ShoppingCart cart) {
 		float total = 0;
-		for (String id : cart.GetItems()) {
+		for (String id : cart.getItems()) {
 			if (database.Contains(id)) {
-				total += database.GetItem(id).GetCost();
+				total += database.getItem(id).getCost();
 			}
 			else {
-				cart.RemoveAll(id);
+				cart.removeAll(id);
 			}
 		}
 		bdRawTotal = new BigDecimal(total).setScale(2,BigDecimal.ROUND_HALF_EVEN);
@@ -61,7 +61,7 @@ public class Register {
 	 * @param cartSize The number of items in the cart
 	 * @param memStatus The membership status of the customer
 	 */ 
-	private void CalcDiscount (int cartSize, boolean memStatus) {
+	private void calcDiscount (int cartSize, boolean memStatus) {
 		float runningTotal = bdRawTotal.floatValue();
 		float netDisc = 0.0f;
 		if (cartSize >= 10) {
@@ -84,7 +84,7 @@ public class Register {
 	/**
 	 * @param taxStatus The exemption status of the customer
 	*/
-	private void CalcTaxTotal (boolean taxStatus) {
+	private void calcTaxTotal (boolean taxStatus) {
 		if (taxStatus) {
 			bdTaxAmount = new BigDecimal(0.00);
 			bdAftTaxTotal = new BigDecimal(bdNetTotal.floatValue()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
@@ -99,53 +99,53 @@ public class Register {
 	/**
 	 * @param cart The items used to print their id's and values.
 	 */
-	public void PrintItems(ShoppingCart cart) {
-		for (String i : cart.GetItems()) {
+	public void printItems(ShoppingCart cart) {
+		for (String i : cart.getItems()) {
 			if (database.Contains(i)) {
-				System.out.printf("%-12s %5.2f\n", i,database.GetItem(i).GetCost());
+				System.out.printf("%-12s %5.2f\n", i,database.getItem(i).getCost());
 			}
 		}
 	}
 	
-	public void PrintDisplay() {
+	public void printDisplay() {
 		System.out.println("------------------");
-		System.out.printf("%-12s %5.2f\n", "Subtotal", BDGetRawTotal());
+		System.out.printf("%-12s %5.2f\n", "Subtotal", geBDRawTotal());
 		System.out.println("------------------");
-		System.out.printf("%-12s -%-5.2f\n", "Discount",BDGetNetDiscount());
-		System.out.printf("%-12s %5.2f\n", "Tax", BDGetTaxAmount());
+		System.out.printf("%-12s -%-5.2f\n", "Discount",getBDNetDiscount());
+		System.out.printf("%-12s %5.2f\n", "Tax", getBDTaxAmount());
 		System.out.println("==================");
-		System.out.printf("%-12s %5.2f\n", "Total", BDGetAftTaxTotal());
+		System.out.printf("%-12s %5.2f\n", "Total", getBDAftTaxTotal());
 	}
 	
 	
 	/**
 	 * @return BigDecimal Returns the object which contains the un-altered subtotal.
 	 */
-	public BigDecimal BDGetRawTotal() {
+	public BigDecimal geBDRawTotal() {
 		return bdRawTotal;
 	}
 	/**
 	 * @return BigDecimal Returns the object which contains the discounted total.
 	 */
-	public BigDecimal GetBDNetTotal() {
+	public BigDecimal getBDNetTotal() {
 		return bdNetTotal;
 	}
 	/**
 	 * @return BigDecimal Returns the object which contains the amount added due to tax.
 	 */
-	public BigDecimal BDGetTaxAmount() {
+	public BigDecimal getBDTaxAmount() {
 		return bdTaxAmount;
 	}
 	/**
 	 * @return BigDecimal Returns the object which contains the total amount after discounts and taxes.
 	 */
-	public BigDecimal BDGetAftTaxTotal() {
+	public BigDecimal getBDAftTaxTotal() {
 		return bdAftTaxTotal;
 	}
 	/**
 	 * @return BigDecimal Returns the object which contains amount discounted from the subtotal.
 	 */
-	public BigDecimal BDGetNetDiscount() {
+	public BigDecimal getBDNetDiscount() {
 		return bdNetDisc;
 	}
 }

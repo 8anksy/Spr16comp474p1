@@ -43,9 +43,9 @@ public class ItemDO {
 	* @param itemID The name of an item to be searched for in the database.
 	* @return Item Returns an Item with the matching id. Returns null if not found. 
 	*/
-	public Item GetItem(String itemID) {
+	public Item getItem(String itemID) {
 		for (int i = 0; i < database.size(); i++) {
-			if (database.get(i).GetID() == itemID) {
+			if (database.get(i).getID() == itemID) {
 				return database.get(i);
 			}
 		}
@@ -59,7 +59,7 @@ public class ItemDO {
 	public boolean Contains(String itemID) {
 		boolean contains = false;
 		for (int i = 0; i < database.size(); i++) {
-			if (database.get(i).GetID() == itemID) {
+			if (database.get(i).getID() == itemID) {
 				contains = true;
 			}
 		}

@@ -14,7 +14,7 @@ public class ShoppingCartTests {
 	
 	@Before
 	public void ResetCart() {
-		cart.EmptyCart();
+		cart.emptyCart();
 	}
 	
 	/*
@@ -24,8 +24,8 @@ public class ShoppingCartTests {
 	@Test
 	public void CartMaxTest() {
 		for (int i = 0; i < 52; i++) {
-			cart.AddItem("potato");
-			assertTrue(cart.GetSize() <= 50);
+			cart.addItem("potato");
+			assertTrue(cart.getSize() <= 50);
 		}
 	}
 	
@@ -34,11 +34,11 @@ public class ShoppingCartTests {
 	 */
 	@Test
 	public void TestCartSize() {
-		assertEquals(0, cart.GetSize());
-		cart.AddItem("banana", 30);
-		assertEquals(30, cart.GetSize());
+		assertEquals(0, cart.getSize());
+		cart.addItem("banana", 30);
+		assertEquals(30, cart.getSize());
 		
-		cart.RemoveQuantity("banana", 5);
-		assertEquals(25, cart.GetSize());
+		cart.removeQuantity("banana", 5);
+		assertEquals(25, cart.getSize());
 	}
 }

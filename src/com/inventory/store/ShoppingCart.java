@@ -26,7 +26,7 @@ public class ShoppingCart {
 	 * This is the base method for adding new items to the shopping cart.
 	 * @param itemID A String to be added to the cart. When added, the cart size will increase by 1.
 	 */
-	public void AddItem(String itemID) {
+	public void addItem(String itemID) {
 		if (size == MAX_CART_SIZE) {
 			return;
 		}else {
@@ -40,9 +40,9 @@ public class ShoppingCart {
 	 * @param itemID A String to be added to the cart.
 	 * @param quantity The number of itemID to add to the ShoppingCart.
 	 */
-	public void AddItem(String itemID, int quantity) {
+	public void addItem(String itemID, int quantity) {
 		for (int i = 0; i < quantity; i++) {
-			this.AddItem(itemID);
+			this.addItem(itemID);
 		}
 	}
 	
@@ -50,22 +50,22 @@ public class ShoppingCart {
 	 * This method is used for adding new items to the cart from an ArrayList.
 	 * @param items An ArrayList of items to be added to the cart.
 	 */
-	public void AddItem(ArrayList<String> items) {
+	public void addItem(ArrayList<String> items) {
 		for (String id : items) {
-			this.AddItem(id);
+			this.addItem(id);
 		}			
 	}
 	
 	/**
 	 * @return ArrayList Returns the list of items in the ShoppingCart
 	 */
-	public ArrayList<String> GetItems() {
+	public ArrayList<String> getItems() {
 		return this.items;
 	}
 	/**
 	 * Removes ALL items from the ShoppingCart
 	 */
-	public void EmptyCart() {
+	public void emptyCart() {
 		items.clear();
 	}
 	/**
@@ -73,14 +73,14 @@ public class ShoppingCart {
 	 * If the item for removal is found, only the size is decremented.
 	 * @param item The item in question to be removed
 	 */
-	public void RemoveAll(String item) {
+	public void removeAll(String item) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i) == item) {
 				size--;
 			}
 		}
 	}
-	public void RemoveQuantity(String item, int quantity) {
+	public void removeQuantity(String item, int quantity) {
 		for (int i = 0; i < quantity; i++) {
 			if (items.get(i) == item) {
 				size --;
@@ -91,7 +91,7 @@ public class ShoppingCart {
 	/**
 	 * @return int Returns the size of the ShoppingCart.
 	 */
-	public int GetSize() {
+	public int getSize() {
 		return size;
 	}
 }
