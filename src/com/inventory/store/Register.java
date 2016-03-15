@@ -99,21 +99,22 @@ public class Register {
 	 * @param cart The items used to print their id's and values.
 	 */
 	public void PrintItems(ShoppingCart cart) {
+		String s;
 		for (String i : cart.GetItems()) {
 			if (database.Contains(i)) {
-				System.out.println(i + database.GetItem(i).GetCost());
+				System.out.printf("%-12s %5.2f\n", i,database.GetItem(i).GetCost());
 			}
 		}
 	}
 	
 	public void PrintDisplay() {
-		
-		System.out.println("Subtotal    " + BDGetRawTotal());
-		System.out.println("-----------------");
-		System.out.println("Discount    -" + BDGetNetDiscount());
-		System.out.println("Tax	     " + BDGetTaxAmount());
-		System.out.println("=================");
-		System.out.println("Total	    " + BDGetAftTaxTotal());
+		System.out.println("------------------");
+		System.out.printf("%-12s %5.2f\n", "Subtotal", BDGetRawTotal());
+		System.out.println("------------------");
+		System.out.printf("%-12s %5.2f\n", "Discount",BDGetNetDiscount());
+		System.out.printf("%-12s %5.2f\n", "Tax", BDGetTaxAmount());
+		System.out.println("==================");
+		System.out.printf("%-12s %5.2f\n", "Total", BDGetAftTaxTotal());
 	}
 	
 	
