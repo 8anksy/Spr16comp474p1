@@ -77,20 +77,17 @@ public class RegisterTests {
 		//Test with 4 items
 		discCart.AddItem("avocado", 4);
 		r.CalcPurchasePrice(discCart, memNoEx);
-		//System.out.println(r.GetBDNetTotal());
 		assertEquals(3.56f,r.GetBDNetTotal().floatValue(), 0);
 		
 		//Test with 5 items
 		discCart.AddItem("avocado");
 		r.CalcPurchasePrice(discCart, memNoEx);
-		//System.out.println(r.GetBDNetTotal());
 		assertEquals(4.45f,r.GetBDNetTotal().floatValue(), 0);
 		
 		//Test with 6 items
 		discCart.AddItem("avocado"); //5.94
 		r.CalcPurchasePrice(discCart, memNoEx);
-		//System.out.println(r.GetBDNetTotal());
-		assertEquals(5.05f,r.GetBDNetTotal().floatValue(), 0);	
+		assertEquals(5.08f,r.GetBDNetTotal().floatValue(), 0);	
 	}
 	
 	@Test

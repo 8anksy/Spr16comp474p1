@@ -64,16 +64,17 @@ public class Register {
 	private void CalcDiscount (int cartSize, boolean memStatus) {
 		float runningTotal = bdRawTotal.floatValue();
 		float netDisc = 0.0f;
-		if (memStatus) {
-			netDisc = bdRawTotal.floatValue() * MEMBER_DISC;
-		}
 		if (cartSize >= 10) {
-			netDisc = netDisc + bdRawTotal.floatValue() * TEN_OR_MORE;
+			netDisc = bdRawTotal.floatValue() * TEN_OR_MORE;
 			
 		}
 		if (cartSize > 5 && cartSize < 10) {
 			netDisc = netDisc + bdRawTotal.floatValue() * OVER_FIVE;
 		}
+		if (memStatus) {
+			netDisc = netDisc + (bdRawTotal.floatValue() - netDisc) * MEMBER_DISC;
+		}
+		
 		runningTotal = bdRawTotal.floatValue() - netDisc;
 		bdNetDisc = new BigDecimal(netDisc).setScale(2,BigDecimal.ROUND_HALF_EVEN);
 		bdNetTotal = new BigDecimal(runningTotal).setScale(2,BigDecimal.ROUND_HALF_EVEN);
@@ -110,7 +111,7 @@ public class Register {
 		System.out.println("------------------");
 		System.out.printf("%-12s %5.2f\n", "Subtotal", BDGetRawTotal());
 		System.out.println("------------------");
-		System.out.printf("%-12s %5.2f\n", "Discount",BDGetNetDiscount());
+		System.out.printf("%-12s -%-5.2f\n", "Discount",BDGetNetDiscount());
 		System.out.printf("%-12s %5.2f\n", "Tax", BDGetTaxAmount());
 		System.out.println("==================");
 		System.out.printf("%-12s %5.2f\n", "Total", BDGetAftTaxTotal());
