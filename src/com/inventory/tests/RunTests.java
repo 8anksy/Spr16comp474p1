@@ -7,7 +7,6 @@ public class RunTests {
 	private Result customerResult;
 	private Result cartResult;
 	private Result registerResult;
-	
 	public RunTests() {
 		 this.customerResult = JUnitCore.runClasses(CustomerTests.class);
 		 this.cartResult = JUnitCore.runClasses(ShoppingCartTests.class);
@@ -25,8 +24,8 @@ public class RunTests {
 			System.out.println(failure.toString());
 		}
 		
-		System.out.println(customerResult.wasSuccessful());
-		System.out.println(cartResult.wasSuccessful());
-		System.out.println(registerResult.wasSuccessful());
+		System.out.println("CustomerTests passed?: " + customerResult.wasSuccessful());
+		System.out.println("ShoppingCartTests passed?: " + cartResult.wasSuccessful());
+		System.out.println("RegisterTests passed?: " + registerResult.wasSuccessful());
 	}
 }

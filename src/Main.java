@@ -1,7 +1,11 @@
+import com.inventory.tests.RunTests;
+
 public class Main {
 
 	public static void main(String[] args) {
-		//totally unnecessary main class
+		RunTests testRunner = new RunTests();
+		
+		testRunner.Run();
 	}
 	
 	
