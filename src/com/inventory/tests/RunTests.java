@@ -13,7 +13,7 @@ public class RunTests {
 		 this.registerResult = JUnitCore.runClasses(RegisterTests.class);
 	}
 	
-	public void Run() {
+	public void run() {
 		for (Failure failure : customerResult.getFailures()) {
 			System.out.println(failure.toString());
 		}
@@ -24,8 +24,8 @@ public class RunTests {
 			System.out.println(failure.toString());
 		}
 		
-		System.out.println("CustomerTests passed?: " + customerResult.wasSuccessful());
-		System.out.println("ShoppingCartTests passed?: " + cartResult.wasSuccessful());
-		System.out.println("RegisterTests passed?: " + registerResult.wasSuccessful());
+		System.out.println("CustomerTests.java passed?: " + customerResult.wasSuccessful());
+		System.out.println("ShoppingCartTests.java passed?: " + cartResult.wasSuccessful());
+		System.out.println("RegisterTests.java passed?: " + registerResult.wasSuccessful());
 	}
 }
